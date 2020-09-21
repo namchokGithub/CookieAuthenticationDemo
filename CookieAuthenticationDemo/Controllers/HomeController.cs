@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using CookieAuthenticationDemo.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CookieAuthenticationDemo.Controllers
 {
@@ -21,6 +22,13 @@ namespace CookieAuthenticationDemo.Controllers
         public IActionResult Index()
         {
             return View();
+        }
+
+        [Authorize]
+        public ActionResult Users()
+        {
+            var uses = new Users();
+            return View(uses.GetUsers());
         }
 
         public IActionResult Privacy()

@@ -26,6 +26,14 @@ namespace CookieAuthenticationDemo
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddAuthentication("CookieAuthentication")
+                    .AddCookie("CookieAuthentication", config =>
+                    {
+                        config.Cookie.Name = "UserLoginCookie";
+                        config.LoginPath = "/Login/UserLogin";
+                    });
+
+            services.AddControllersWithViews();
             services.AddControllersWithViews();
         }
 
@@ -46,7 +54,7 @@ namespace CookieAuthenticationDemo
             app.UseStaticFiles();
 
             app.UseRouting();
-
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
